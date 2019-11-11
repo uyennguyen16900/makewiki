@@ -14,7 +14,7 @@
                         <button type="submit" class="btn btn-sm btn-outline-secondary"><a class="underline" href="{% url 'wiki-details-page' page.slug %}">View</a></button>
                         <button type="submit" class="btn btn-sm btn-outline-secondary">Edit</button>
                      </div>
-                     <small class="text-muted">{{ published_time }}</small>
+                     <small class="text-muted">{% load humanize %}{{ page.created|naturaltime }}</small>
                   </div>
                </div>
             </div>

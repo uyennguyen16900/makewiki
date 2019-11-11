@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wiki',
     'makewiki',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
