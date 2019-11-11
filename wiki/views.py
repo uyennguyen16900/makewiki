@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from wiki.models import Page
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from wiki.forms import PageForm
+from django.utils import timezone
+from datetime import datetime
 
 
 class PageList(ListView):
@@ -16,9 +19,8 @@ class PageList(ListView):
     def get(self, request):
         """ Returns a list of wiki pages. """
         pages = self.get_queryset().all()
+        time = datetime.now()
         return render(request, 'list.html', {'pages': pages})
-
-
 
 class PageDetailView(DetailView):
     """
@@ -41,10 +43,12 @@ class PageDetailView(DetailView):
 
     def get(self, request, slug):
         """ Returns a specific of wiki page by slug. """
-        template_name = 'page.html'
-        # page = get_object_or_404(Page, slug=slug)
         page = self.get_queryset().get(slug__iexact = slug)
-        return render(request, template_name, {'page': page})
+        return render(request, 'page.html', {'page': page})
 
     def post(self, request, slug):
+        form = PostForm(request)
+        if form.is_valid():
+            form.save()
+            return redirect('/<str:slug>/')
         pass
