@@ -19,8 +19,8 @@ class PageList(ListView):
     def get(self, request):
         """ Returns a list of wiki pages. """
         pages = self.get_queryset().all()
-        time = datetime.now()
-        return render(request, 'list.html', {'pages': pages})
+        published_time = self.get_queryset().all()[0].was_published_recently()
+        return render(request, 'list.html', {'pages': pages, 'published_time': published_time})
 
 class PageDetailView(DetailView):
     """
