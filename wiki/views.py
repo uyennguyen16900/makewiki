@@ -8,12 +8,7 @@ from datetime import datetime
 
 
 class PageList(ListView):
-    """
-    CHALLENGES:
-      1. On GET, display a homepage that shows all Pages in your wiki.
-      2. Replace this CHALLENGE text with a descriptive docstring for PageList.
-      3. Replace pass below with the code to render a template named `list.html`.
-    """
+    """Renders a list of all pages."""
     model = Page
 
     def get(self, request):
@@ -24,9 +19,7 @@ class PageList(ListView):
 
 class PageDetailView(DetailView):
     """
-    CHALLENGES:
-      1. On GET, render a template named `page.html`.
-      2. Replace this docstring with a description of what thos accomplishes.
+    Renders a specific page based on its slug.
 
     STRETCH CHALLENGES:
       1. Import the PageForm class from forms.py.
