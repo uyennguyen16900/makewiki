@@ -1,5 +1,5 @@
 from django.urls import path
-from wiki.views import PageList, PageDetailView
+from wiki.views import PageList, PageDetailView, PageEditView
 """
   CHALLENGES:
     1. Refactor the URL named `wiki-list-page` and point it to the root route (`/`).
@@ -14,4 +14,5 @@ from wiki.views import PageList, PageDetailView
 urlpatterns = [
     path('', PageList.as_view(), name='wiki-list-page'),
     path('<str:slug>', PageDetailView.as_view(), name='wiki-details-page'),
+    path('<str:slug>/edit', PageEditView.as_view(), name='wiki-edit-page')
 ]

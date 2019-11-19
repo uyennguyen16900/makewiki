@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from wiki.models import Page
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse
+
 from wiki.forms import PageForm
 from django.utils import timezone
 from datetime import datetime
+
 
 
 class PageList(ListView):
@@ -39,9 +43,27 @@ class PageDetailView(DetailView):
         page = self.get_queryset().get(slug__iexact = slug)
         return render(request, 'page.html', {'page': page})
 
-    def post(self, request, slug):
-        form = PostForm(request)
-        if form.is_valid():
-            form.save()
-            return redirect('/<str:slug>/')
-        pass
+class PageEditView(UpdateView):
+    """"""
+    model = Page
+    fields = '__all__'
+    template_name = 'edit.html'
+
+    # def get(self, request, slug):
+    #     """Render edit page"""
+    #     page = self.get_queryset().get(slug__iexact = slug)
+    #     form = PageForm()
+    #     template_name = 'edit.html'
+    #     return render(request, template_name, {'form': form})
+
+    # def post(self, request, slug):
+    #     form = PageForm(request.POST)
+    #     if form.is_valid():
+    #         page = form.save()
+    #         page.save()
+    #         return redirect('wiki-details-page', slug=page.slug)
+    #     # return render(request, 'edit.html', {'form': form})
+
+    def form_valid(self, form):
+        page = form.save()
+        return redirect('wiki-details-page', slug=page.slug)

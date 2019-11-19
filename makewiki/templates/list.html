@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+<h3>📓 Wikis {% if pages %}<small class="text-muted">({{ pages|length }} Page{{ pages|length|pluralize:"s" }})</small>{% endif %}</h3>
+<hr>
 <div class="album py-5 bg-light">
    <div class="container">
       <div class="row">
@@ -12,8 +14,8 @@
                   <p class="card-text">{{ page.content|truncatewords:50 }}</p>
                   <div class="d-flex justify-content-between align-items-center">
                      <div class="btn-group">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary"><a class="underline" href="{% url 'wiki-details-page' page.slug %}">View</a></button>
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">Edit</button>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary" name="view"><a class="underline" href="{% url 'wiki-details-page' page.slug %}">View</a></button>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary" name="edit"><a class="underline" href="{% url 'wiki-edit-page' page.slug %}">Edit</a></button>
                      </div>
                      <small class="text-muted">{% load humanize %}{{ page.created|naturaltime }}</small>
                   </div>
